@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { pastConversations } from "../store/slices/dataSlice";
 import useDarkMode from "../hooks/useDarkMode";
 import { useParams, Link } from "react-router-dom";
@@ -7,22 +6,25 @@ import { FaThumbsUp } from "react-icons/fa";
 import { FaThumbsDown } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { darkMode } from "../store/slices/dataSlice";
 
 const convoHistory = () => {
   const params = useParams();
-  const [textColor, bgColor] = useDarkMode();
+  const [textColor, bgColor, shadedText, shadedBg] = useDarkMode();
+  const darkmode = useSelector(darkMode);
   const conversation = useSelector(pastConversations)[params.id];
   //   const conversation = { chat: [] };
   console.log(conversation, "conversation");
   return (
-    <div className="flex h-screen w-screen flex-col items-center ">
+    <div className={"flex h-screen w-screen flex-col items-center " + bgColor}>
       <div className="flex w-screen justify-between p-4">
         <Link to="/">
-          <p className="text-2xl font-bold">Stealth AI</p>
+          <p className={"text-2xl font-bold " + textColor}>Stealth AI</p>
         </Link>
       </div>
       <div
-        className={`flex w-10/12 flex-col rounded-md ${bgColor} ${textColor}`}
+        className={`flex w-10/12 flex-col rounded-md ${shadedBg} ${shadedText}`}
       >
         <div
           id="chatDiv"
@@ -46,23 +48,27 @@ const convoHistory = () => {
           ))}
         </div>
       </div>
-      <p className="m-3 text-2xl">Feedback</p>
+      <p className={"m-3 text-2xl " + textColor}>Feedback</p>
       <div className="w-10/12">
         <div className="flex">
           {new Array(conversation.stars).fill(0).map((ele, idx) => (
             <FaStar
               key={idx}
-              className="m-1 cursor-pointer text-xl text-slate-800"
+              className={`m-1 cursor-pointer text-xl ${
+                darkmode ? "text-slate-900" : "text-slate-400"
+              }`}
             />
           ))}
           {new Array(5 - conversation.stars).fill(0).map((ele, idx) => (
             <FaRegStar
               key={idx}
-              className="m-1 cursor-pointer text-xl text-slate-800"
+              className={`m-1 cursor-pointer text-xl ${
+                darkmode ? "text-slate-900" : "text-slate-400"
+              }`}
             />
           ))}
         </div>
-        <p>{conversation.feedback}</p>
+        <p className={`${textColor}`}>{conversation.feedback}</p>
       </div>
     </div>
   );

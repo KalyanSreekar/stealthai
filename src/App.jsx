@@ -2,7 +2,7 @@ import ChatBox from "./components/ChatBox";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Conversations from "./pages/conversations";
 import ConvoHistory from "./pages/convoHistory";
-// import DarkModeToggler from "./components/darkModeToggler"
+import DarkModeToggler from "./components/darkModeToggler";
 
 function App() {
   const router = createBrowserRouter([
@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="flex h-screen w-screen items-center justify-center">
       <RouterProvider router={router} />
-      {/* <DarkModeToggler /> */}
+      <DarkModeToggler />
     </div>
   );
 }

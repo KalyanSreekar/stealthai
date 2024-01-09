@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pastConversations } from "../store/slices/dataSlice";
+import { pastConversations, darkMode } from "../store/slices/dataSlice";
 import { FaSortNumericDown } from "react-icons/fa";
 import { FaSortNumericDownAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import useDarkMode from "../hooks/useDarkMode";
 
 const conversations = () => {
+  const darkmode = useSelector(darkMode);
   const [sortStars, setSortStars] = useState(false);
   const [conversations, setConversations] = useState(
     useSelector(pastConversations),
   );
+  const [textColor, bgColor, shadedText, shadedBg] = useDarkMode();
   //   const conversations = useSelector(pastConversations);
   console.log(conversations, "conversations");
   const downloadFile = ({ data, fileName, fileType }) => {
@@ -82,20 +85,26 @@ const conversations = () => {
   };
 
   return (
-    <div className="h-screen w-screen">
+    <div className={`h-screen w-screen ${bgColor}`}>
       <div className="flex w-screen justify-between p-4">
         <Link to={"/"}>
-          <p className="text-2xl font-bold">Stealth AI</p>
+          <p className={`text-2xl font-bold ${textColor}`}>Stealth AI</p>
         </Link>
       </div>
       {conversations.length === 0 ? (
-        <p className="text-center text-2xl">No Past Conversations Data</p>
+        <p className={`text-center text-2xl ${textColor}`}>
+          No Past Conversations Data
+        </p>
       ) : (
         <>
           <div className="grid grid-cols-5">
-            <p className="text-center text-xl font-semibold">Time</p>
+            <p className={"text-center text-xl font-semibold " + textColor}>
+              Time
+            </p>
             <div className="flex items-center justify-center">
-              <p className="text-center text-xl font-semibold">stars</p>
+              <p className={"text-center text-xl font-semibold " + textColor}>
+                stars
+              </p>
               {sortStars ? (
                 <FaSortNumericDownAlt
                   onClick={sortByStars}
@@ -108,21 +117,37 @@ const conversations = () => {
                 />
               )}
             </div>
-            <p className="text-center text-xl font-semibold">Feedback</p>
-            <p className="text-center text-xl font-semibold">View</p>
-            <p className="text-center text-xl font-semibold">Export</p>
+            <p className={"text-center text-xl font-semibold " + textColor}>
+              Feedback
+            </p>
+            <p className={"text-center text-xl font-semibold " + textColor}>
+              View
+            </p>
+            <p className={"text-center text-xl font-semibold " + textColor}>
+              Export
+            </p>
           </div>
 
           {conversations.map((item, idx) => {
             return (
               <div key={idx} className="m-2 grid grid-cols-5 gap-4">
-                <p className="text-center">{item.time}</p>
-                <p className="text-center">{item.stars}</p>
-                <p className="overflow-hidden text-ellipsis whitespace-nowrap">
+                <p className={"text-center " + textColor}>{item.time}</p>
+                <p className={"text-center " + textColor}>{item.stars}</p>
+                <p
+                  className={
+                    "overflow-hidden text-ellipsis whitespace-nowrap " +
+                    textColor
+                  }
+                >
                   {item.feedback}
                 </p>
                 <Link to={`/conversations/${idx}`}>
-                  <p className="h-fit cursor-pointer rounded-full bg-slate-600 px-4 py-2 text-center text-slate-200">
+                  <p
+                    className={
+                      "h-fit cursor-pointer rounded-full bg-slate-600 px-4 py-2 text-center " +
+                      textColor
+                    }
+                  >
                     View
                   </p>
                 </Link>
@@ -130,7 +155,10 @@ const conversations = () => {
                   onClick={() => {
                     exportToJson(item);
                   }}
-                  className="h-fit cursor-pointer rounded-full bg-slate-600 px-4 py-2 text-center text-slate-200"
+                  className={
+                    "h-fit cursor-pointer rounded-full bg-slate-600 px-4 py-2 text-center " +
+                    textColor
+                  }
                 >
                   Export
                 </p>

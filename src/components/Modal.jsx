@@ -1,21 +1,36 @@
 import React, { useState } from "react";
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { darkMode } from "../store/slices/dataSlice";
 
 const Modal = ({ open, closeModal, handleSaveSession }) => {
   const [stars, setStars] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [error, setError] = useState(false);
+  const darkmode = useSelector(darkMode);
   if (!open) return null;
   return (
     <div>
-      <div className="fixed left-1/2 top-1/2 z-20 flex min-h-12 w-1/2 translate-x-[-50%] translate-y-[-50%] flex-col items-center rounded-xl bg-slate-100">
-        <p className="text-center text-lg font-bold text-slate-600">
+      <div
+        className={`fixed left-1/2 top-1/2 z-20 flex min-h-12 w-1/2 translate-x-[-50%] translate-y-[-50%] flex-col items-center rounded-xl ${
+          darkmode ? "bg-slate-50" : "bg-slate-400"
+        }`}
+      >
+        <p
+          className={`text-center text-lg font-bold ${
+            darkmode ? "text-slate-600" : "text-slate-950"
+          }`}
+        >
           Submit Feedback
         </p>
         <textarea
           value={feedback}
-          className="my-4 w-10/12 p-2 text-slate-800"
+          className={`my-4 w-10/12 p-2 ${
+            darkmode
+              ? "bg-slate-100 text-slate-800"
+              : "bg-slate-800 text-slate-100"
+          } `}
           onChange={(e) => {
             setFeedback(e.target.value);
             if (error) setError(false);
@@ -53,7 +68,9 @@ const Modal = ({ open, closeModal, handleSaveSession }) => {
         )}
         <div className="my-4 flex">
           <button
-            className="mr-5 rounded-full bg-slate-600 px-4 py-1"
+            className={`mr-5 rounded-full ${
+              darkmode ? "bg-slate-400" : "bg-slate-600"
+            } px-4 py-1`}
             onClick={() => {
               if (feedback && stars > 0) {
                 handleSaveSession(stars, feedback);
@@ -64,7 +81,9 @@ const Modal = ({ open, closeModal, handleSaveSession }) => {
             Submit
           </button>
           <button
-            className="rounded-full bg-slate-600 px-4 py-1"
+            className={`rounded-full ${
+              darkmode ? "bg-slate-400" : "bg-slate-600"
+            } px-4 py-1`}
             onClick={closeModal}
           >
             Close

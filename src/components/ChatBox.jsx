@@ -12,15 +12,17 @@ import {
   likeMessage,
   dislikeMessage,
   saveSessionData,
+  darkMode,
 } from "../store/slices/dataSlice";
 import Modal from "./Modal";
 import { Link } from "react-router-dom";
 
 const ChatBox = () => {
-  const [textColor, bgColor] = useDarkMode();
+  const [textColor, bgColor, shadedText, shadedBg] = useDarkMode();
   const [showIcon, setShowIcon] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const darkmode = useSelector(darkMode);
   const chat = useSelector(messages);
   const [message, setMessage] = useState("");
 
@@ -36,9 +38,6 @@ const ChatBox = () => {
   const handleAiResponse = () => {
     const responses = [
       "Hello there",
-      "Sorry i didn't understand that",
-      "My name is bot",
-      "I am the god",
       "I am Naruto Uzumaki.",
       "I love instant ramen treated by Irukka Sensei at Ichiraku ",
       "I want to become hokage and surpass all my precidators",
@@ -60,15 +59,15 @@ const ChatBox = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center">
+    <div className={`flex h-screen w-screen flex-col items-center ${bgColor}`}>
       <div className="flex w-screen justify-between p-4">
-        <p className="text-2xl font-bold">Stealth AI</p>
+        <p className={`text-2xl font-bold ${textColor}`}>Stealth AI</p>
         <Link to={"/conversations"}>
-          <p className="cursor-pointer text-lg">Conversations</p>
+          <p className={`cursor-pointer text-lg ${textColor}`}>Conversations</p>
         </Link>
       </div>
       <div
-        className={`flex h-5/6 w-10/12 flex-col rounded-md ${bgColor} ${textColor}`}
+        className={`flex h-5/6 w-10/12 flex-col rounded-md ${shadedBg} ${textColor}`}
       >
         <div
           id="chatDiv"
@@ -139,7 +138,7 @@ const ChatBox = () => {
           {chat.find((data) => data.from === "bot") && (
             <p
               onClick={() => setModalOpen(true)}
-              className="cursor-pointer rounded-lg bg-slate-500 px-4 py-2 text-center"
+              className={`cursor-pointer rounded-lg bg-slate-500 px-4 py-2 text-center`}
             >
               End Conversation
             </p>
@@ -150,7 +149,11 @@ const ChatBox = () => {
             onChange={(e) => setMessage(e.target.value)}
             type="text"
             value={message}
-            className={`w-full rounded-full px-4 py-2 text-slate-700`}
+            className={`w-full rounded-full px-4 py-2 ${
+              darkmode
+                ? "bg-slate-300 text-slate-900"
+                : "bg-slate-600 text-slate-200"
+            }`}
             placeholder="Speak your mind"
             onKeyDown={(e) => {
               if (e.key === "Enter" && message) handleInputSubmit();
