@@ -175,4 +175,4 @@ const ChatBox = () => {
   );
 };
 
-export default chatBox;
+export default ChatBox;
