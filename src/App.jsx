@@ -1,4 +1,4 @@
-import ChatBox from "./components/chatBox";
+import ChatBox from "./components/ChatBox";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Conversations from "./pages/conversations";
 import ConvoHistory from "./pages/convoHistory";
