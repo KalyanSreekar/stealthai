@@ -14,10 +14,13 @@ const convoHistory = () => {
   const [textColor, bgColor, shadedText, shadedBg] = useDarkMode();
   const darkmode = useSelector(darkMode);
   const conversation = useSelector(pastConversations)[params.id];
-  //   const conversation = { chat: [] };
-  console.log(conversation, "conversation");
   return (
-    <div className={"flex h-screen w-screen flex-col items-center " + bgColor}>
+    <div
+      className={
+        "flex h-screen w-screen flex-col items-center overflow-scroll " +
+        bgColor
+      }
+    >
       <div className="flex w-screen justify-between p-4">
         <Link to="/">
           <p className={"text-2xl font-bold " + textColor}>Stealth AI</p>

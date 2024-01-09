@@ -14,7 +14,6 @@ const conversations = () => {
   );
   const [textColor, bgColor, shadedText, shadedBg] = useDarkMode();
   //   const conversations = useSelector(pastConversations);
-  console.log(conversations, "conversations");
   const downloadFile = ({ data, fileName, fileType }) => {
     // Create a blob with the data we want to download as a file
     const blob = new Blob([data], { type: fileType });
@@ -33,7 +32,6 @@ const conversations = () => {
   };
 
   const exportToJson = (item) => {
-    // e.preventDefault();
     let html_data = `<html><body>`;
     //started chat div
     html_data =
@@ -85,7 +83,7 @@ const conversations = () => {
   };
 
   return (
-    <div className={`h-screen w-screen ${bgColor}`}>
+    <div className={`h-screen w-screen overflow-scroll ${bgColor}`}>
       <div className="flex w-screen justify-between p-4">
         <Link to={"/"}>
           <p className={`text-2xl font-bold ${textColor}`}>Stealth AI</p>

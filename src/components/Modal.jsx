@@ -39,7 +39,6 @@ const Modal = ({ open, closeModal, handleSaveSession }) => {
         />
         <div className="my-2 flex">
           {new Array(5).fill(0).map((e, i) => {
-            console.log(i, stars, i < stars);
             return i < stars ? (
               <FaStar
                 key={i}
