@@ -16,7 +16,7 @@ import {
 import Modal from "./Modal";
 import { Link } from "react-router-dom";
 
-function chatBox() {
+const chatBox = () => {
   const [textColor, bgColor] = useDarkMode();
   const [showIcon, setShowIcon] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -173,6 +173,6 @@ function chatBox() {
       </div>
     </div>
   );
-}
+};
 
 export default chatBox;
