@@ -106,12 +106,12 @@ const conversations = () => {
               {sortStars ? (
                 <FaSortNumericDownAlt
                   onClick={sortByStars}
-                  className="ml-2 mt-1 cursor-pointer"
+                  className={"ml-2 mt-1 cursor-pointer " + textColor}
                 />
               ) : (
                 <FaSortNumericDown
                   onClick={sortByStars}
-                  className="ml-2 mt-1 cursor-pointer"
+                  className={"ml-2 mt-1 cursor-pointer " + textColor}
                 />
               )}
             </div>
